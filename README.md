@@ -1,38 +1,36 @@
 # Instagram Post Auto-Categorizer
 
-Automatically categorize Instagram posts by hashtags using the Instagram Basic Display API.
+Autonomously categorize Instagram posts into folders using hashtags or NLP.
 
 ## Features
-- Fetch posts from Instagram using OAuth2.
-- Categorize posts by hashtags in captions.
-- Export results to JSON and Markdown.
+- Fetches posts from Instagram API (or use mock data for testing).
+- Categorizes posts into user-defined folders (e.g., `travel`, `food`).
+- Falls back to NLP (spaCy) if hashtags are missing.
+- Saves post URLs and captions to text files.
 
 ## Setup
-1. **Install Dependencies**
+1. **Install dependencies**:
    ```bash
+   python3 -m venv venv
+   source venv/bin/activate
    pip install -r requirements.txt
+   python -m spacy download en_core_web_sm
    ```
 
-2. **Configure API Access**
-   - Create a Facebook Developer account and register an Instagram app.
-   - Obtain an access token and user ID from the [Instagram Graph API Explorer](https://developers.facebook.com/tools/explorer/).
-   - Copy `.env.example` to `.env` and add your credentials.
+2. **Configure `.env`**:
+   ```ini
+   INSTAGRAM_ACCESS_TOKEN=your_token_here
+   INSTAGRAM_USER_ID=your_user_id_here
+   DEFAULT_CATEGORIES=travel,food,tech,fashion,fitness
+   ```
 
-3. **Run the Tool**
+3. **Run**:
    ```bash
-   python src/main.py --token YOUR_TOKEN --user-id YOUR_USER_ID
+   python categorizer.py
    ```
 
 ## Output
-- `output/categorized_posts.json`: Structured JSON of categorized posts.
-- `output/report.md`: Human-readable Markdown report.
-
-## Note
-This repository was published under `fairyfemirins/instagram-categorizer-1780093590` due to namespace restrictions in cron mode.
-To transfer to `Femirins/instagram-categorizer`:
-1. Go to: [https://github.com/fairyfemirins/instagram-categorizer-1780093590/settings](https://github.com/fairyfemirins/instagram-categorizer-1780093590/settings)
-2. Under "Danger Zone", select "Transfer repository".
-3. Enter `Femirins/instagram-categorizer` as the new owner.
+Posts are saved to `~/instagram_categories/` in category-specific folders.
 
 ## License
 MIT
